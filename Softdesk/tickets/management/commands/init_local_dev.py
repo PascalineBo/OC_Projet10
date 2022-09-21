@@ -10,7 +10,7 @@ PROJECTS = [
         'title': 'ecol',
         'description': 'outil de collaboration interne pour le partage, le '
                        'versioning et la sécurisation des documents',
-        'type':'outil interne mais accès externes possibles',
+        'type': 'outil interne mais accès externes possibles',
         'project_contributors': [
                 {
                     'user': 'John'
@@ -33,13 +33,13 @@ PROJECTS = [
                         [
                             {
                                 'description': 'ai aussi eu ce problème',
-                                'author':'Denis',
-                                'created_time':'',
+                                'author': 'Denis',
+                                'created_time': '',
                             },
                             {
                                 'description': 'moi aussi',
-                                'author':'Clare',
-                                'created_time':'',
+                                'author': 'Clare',
+                                'created_time': '',
                             },
                         ]
                     },
