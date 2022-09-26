@@ -15,20 +15,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_nested import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework import routers
-from tickets.views import ProjectViewset, IssueViewset, CommentViewset
+from tickets.views import ProjectViewset, IssueViewset, CommentViewset, ContributorsViewset
 
 
 router = routers.SimpleRouter()
-router.register('project', ProjectViewset, basename='project')
-router.register('issue', IssueViewset, basename='issue')
-router.register('comment', CommentViewset, basename='comment')
+
+# /projects/   ||   /projects/{id}/
+router.register('projects', ProjectViewset, basename='project')
+projects_router = routers.NestedSimpleRouter(router, 'projects', lookup='project')
+
+# /projects/{id}/issues/   ||   /projects/{id}/issues/{id}
+projects_router.register('issues', IssueViewset, basename='project-issues')
+issues_router = routers.NestedSimpleRouter(projects_router, 'issues', lookup='issue')
+
+# /projects/{id}/issues/{id}/comments   ||   /projects/{id}/issues/{id}/comments/{id}
+issues_router.register('comments', CommentViewset, basename='issue-comments')
+comments_router = routers.NestedSimpleRouter(issues_router, 'comments', lookup='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include(router.urls))
+    path('softdesk-auth/', include('rest_framework.urls')),
+    path('softdesk/login/', TokenObtainPairView.as_view(), name='login'),
+    path('softdesk/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('softdesk/', include(router.urls)),
+    path('softdesk/', include(projects_router.urls)),
+    path('softdesk/', include(issues_router.urls)),
 ]
