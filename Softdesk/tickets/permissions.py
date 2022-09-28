@@ -21,11 +21,12 @@ class IsProjectAuthorOrContributorDetailsOrReadOnly(BasePermission):
         if request.method in SAFE_METHODS:
             return True
 
-        author =[
-            contrib.user for contrib in
-            Contributors.objects.filter(Q(project=project_id) & Q(role='AUTHOR'))
-            ]
-        return bool(request.user in author)
+        if view.action == "update" or "perform_update" or "destroy":
+            author =[
+                contrib.user for contrib in
+                Contributors.objects.filter(Q(project=project_id) & Q(role='AUTHOR'))
+                ]
+            return bool(request.user in author)
 
 
 class IsContributor(BasePermission):

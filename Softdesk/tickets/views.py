@@ -40,11 +40,7 @@ class ProjectViewset(ModelViewSet):
                           IsProjectAuthorOrContributorDetailsOrReadOnly]
 
     def get_queryset(self, *args, **kwargs):
-        # à retravailler
-        current_reader = Contributors.objects.filter(user=self.request.user)
-        # contributors = self.request.GET.get('contributors')
-        # contributors_user =
-        # return Project.objects.filter(contributors__in=current_reader)
+
         return Project.objects.all()
 
 class IssueViewset(ModelViewSet):

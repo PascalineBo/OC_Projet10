@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework_nested import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from tickets.views import ProjectViewset, IssueViewset, CommentViewset, ContributorsViewset
+from authentication.views import RegisterAPIView
 
 
 router = routers.SimpleRouter()
@@ -38,6 +39,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('softdesk-auth/', include('rest_framework.urls')),
     path('softdesk/login/', TokenObtainPairView.as_view(), name='login'),
+    path('softdesk/signup/', RegisterAPIView.as_view(), name='signup'),
     path('softdesk/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('softdesk/', include(router.urls)),
     path('softdesk/', include(projects_router.urls)),

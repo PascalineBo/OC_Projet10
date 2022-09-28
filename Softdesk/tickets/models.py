@@ -34,7 +34,7 @@ class Contributors(models.Model):
     role = models.CharField(max_length=30, choices=ROLE_CHOICES,
                             verbose_name='Rôle')
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
-                                related_name='contributors')
+                                related_name='contributors', blank=True)
 
     class Meta:
         unique_together = ('user', 'project')
@@ -63,7 +63,7 @@ class Issue(models.Model):
     desc = models.CharField(max_length=2048)
     tag = models.CharField(max_length=128, choices=Tag.choices, verbose_name="tag")
     priority = models.CharField(max_length=128, choices=Priority.choices, verbose_name="priority")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_issues')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_issues', blank=True)
     status = models.CharField(max_length=128, choices=Status.choices, verbose_name="status")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="issue_author")
     assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
