@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from django.db.models import Q
 
-from .models import Contributors
+from .models import Contributor
 
 
 class IsProjectAuthorOrContributorDetailsOrReadOnly(BasePermission):
@@ -12,21 +12,19 @@ class IsProjectAuthorOrContributorDetailsOrReadOnly(BasePermission):
     def has_object_permission(self, request, view, project):
         project_id = view.kwargs.get("pk")
 
-        if view.action == "retrieve":
-            contributors = [
-                contrib.user for contrib in Contributors.objects.filter(project=project_id)
-            ]
-            return bool(request.user in contributors)
+        # if view.action == "retrieve":
+            # contributors = [
+                # contrib.user for contrib in Contributor.objects.filter(project=project_id)
+            # ]
+            # return bool(request.user in contributors)
 
         if request.method in SAFE_METHODS:
             return True
 
-        if view.action == "update" or "perform_update" or "destroy":
-            author =[
-                contrib.user for contrib in
-                Contributors.objects.filter(Q(project=project_id) & Q(role='AUTHOR'))
-                ]
-            return bool(request.user in author)
+        if request.method == "create" or request.method == "perform_create":
+            return True
+
+        return bool(project.author == request.user.id)
 
 
 class IsContributor(BasePermission):
@@ -35,7 +33,7 @@ class IsContributor(BasePermission):
     def has_permission(self, request, view):
         project_id = view.kwargs.get("project_pk")
         contributors = [
-            contrib.user for contrib in Contributors.objects.filter(project=project_id)
+            contrib.user for contrib in Contributor.objects.filter(project=project_id)
         ]
         return bool(request.user in contributors)
 

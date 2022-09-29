@@ -16,12 +16,17 @@ class Project(models.Model):
     type = models.CharField(max_length=30, choices=ProjectType.choices,
                             verbose_name="type of project")
     created_time = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                               on_delete=models.CASCADE,
+                               related_name='projects',
+                               verbose_name="Project author",
+                               null=True)
 
     def __str__(self):
         return self.title
 
 
-class Contributors(models.Model):
+class Contributor(models.Model):
     CONTRIBUTOR = 'CONTRIBUTOR'
     AUTHOR = 'AUTHOR'
 
@@ -30,11 +35,12 @@ class Contributors(models.Model):
         (AUTHOR, 'Author'),
         )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                             related_name="contributors")
     role = models.CharField(max_length=30, choices=ROLE_CHOICES,
                             verbose_name='Rôle')
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
-                                related_name='contributors', blank=True)
+                                related_name='project_contributors', blank=True)
 
     class Meta:
         unique_together = ('user', 'project')

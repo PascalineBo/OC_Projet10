@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Project, Issue, Contributors, Comment
+from .models import Project, Issue, Contributor, Comment
 
 admin.site.register(Project)
 admin.site.register(Issue)
-admin.site.register(Contributors)
+admin.site.register(Contributor)
 admin.site.register(Comment)
 
 # class ContributorAdmin(admin.ModelAdmin):
