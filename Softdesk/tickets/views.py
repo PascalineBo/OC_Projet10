@@ -1,20 +1,20 @@
-from django.shortcuts import render
 from django.db import transaction
 from rest_framework import status, exceptions
 from rest_framework.permissions import IsAuthenticated
 from tickets.models import Project, Issue, Comment, Contributor
-from tickets.serializers import ProjectSerializer, IssueSerializer, CommentSerializer, \
-                                ContributorsSerializer
+from tickets.serializers import ProjectSerializer, IssueSerializer, \
+    CommentSerializer, ContributorsSerializer
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from tickets.permissions import (IsContributor,
-                                IsProjectAuthorOrContributorDetailsOrReadOnly,
-                                IsIssueAuthorOrReadOnly,
-                                IsCommentAuthorOrReadOnly,
+                                 IsProjectAuthorOrContributorDetailsOrReadOnly,
+                                 IsIssueAuthorOrReadOnly,
+                                 IsCommentAuthorOrReadOnly,
                                  IsAllowedContributorsManagement)
-from tickets.utils import validate_multiple_choice, is_digit_or_raise_exception
-from django.db.models import Q
+from tickets.utils import validate_multiple_choice
+
 # Create your views here.
 
 User = get_user_model()
@@ -32,6 +32,7 @@ class DestroyMixin:
             "message": f"{model_name} deleted successfully"
         },
             status=status.HTTP_200_OK)
+
 
 class SerializeCommentMixin:
     """
@@ -53,6 +54,7 @@ class SerializeCommentMixin:
         serializer = self.serializer_class(data=data)
 
         return serializer
+
 
 class ContributorViewset(ModelViewSet):
 
@@ -78,9 +80,11 @@ class ContributorViewset(ModelViewSet):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProjectViewset(DestroyMixin, ModelViewSet):
@@ -97,8 +101,9 @@ class ProjectViewset(DestroyMixin, ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         author = request.user.id
-        type_choice = validate_multiple_choice(choices_list=Project.ProjectType,
-                                               user_choice=request.POST.get('type'))
+        type_choice = validate_multiple_choice(
+            choices_list=Project.ProjectType,
+            user_choice=request.POST.get('type'))
         data = {
             "title": request.POST.get('title'),
             "description": request.POST.get('description'),
@@ -109,9 +114,11 @@ class ProjectViewset(DestroyMixin, ModelViewSet):
 
         if serializer.is_valid():
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     @transaction.atomic
     def perform_create(self, serializer):
@@ -158,12 +165,15 @@ class IssueViewset(ModelViewSet, DestroyMixin):
         assignee = request.POST.get('assignee')
         project_pk = self.kwargs.get('project_pk')
         project = Project.objects.get(pk=project_pk)
-        tag_choice = validate_multiple_choice(choices_list=Issue.Tag,
-                                              user_choice=request.POST.get('tag'))
-        priority_choice = validate_multiple_choice(choices_list=Issue.Priority,
-                                                   user_choice=request.POST.get('priority'))
-        status_choice = validate_multiple_choice(choices_list=Issue.Status,
-                                                 user_choice=request.POST.get('status'))
+        tag_choice = validate_multiple_choice(
+            choices_list=Issue.Tag,
+            user_choice=request.POST.get('tag'))
+        priority_choice = validate_multiple_choice(
+            choices_list=Issue.Priority,
+            user_choice=request.POST.get('priority'))
+        status_choice = validate_multiple_choice(
+            choices_list=Issue.Status,
+            user_choice=request.POST.get('status'))
         data = {
             "title": request.POST.get('title'),
             "desc": request.POST.get('desc'),
@@ -178,9 +188,11 @@ class IssueViewset(ModelViewSet, DestroyMixin):
 
         if serializer.is_valid():
             self.perform_create(serializer)
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, model_name="issue", *args, **kwargs):
         return super().destroy(request, model_name, *args, **kwargs)
@@ -208,9 +220,11 @@ class CommentViewset(SerializeCommentMixin, ModelViewSet):
 
         if serializer.is_valid():
             self.perform_create(serializer)
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
         serializer = \
@@ -219,7 +233,8 @@ class CommentViewset(SerializeCommentMixin, ModelViewSet):
         if serializer.is_valid():
             serializer.save()
 
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)

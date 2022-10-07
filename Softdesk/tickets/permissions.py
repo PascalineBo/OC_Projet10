@@ -1,6 +1,4 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from django.db.models import Q
-
 from .models import Contributor, Project
 
 

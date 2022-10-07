@@ -35,12 +35,14 @@ class Contributor(models.Model):
         (AUTHOR, 'Author'),
         )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE,
                              related_name="contributors")
     role = models.CharField(max_length=30, choices=ROLE_CHOICES,
                             verbose_name='Rôle')
     project = models.ForeignKey(Project, on_delete=models.CASCADE,
-                                related_name='project_contributors', blank=True)
+                                related_name='project_contributors',
+                                blank=True)
 
     class Meta:
         unique_together = ('user', 'project')
@@ -67,12 +69,21 @@ class Issue(models.Model):
 
     title = models.CharField(max_length=255)
     desc = models.CharField(max_length=2048)
-    tag = models.CharField(max_length=128, choices=Tag.choices, verbose_name="tag")
-    priority = models.CharField(max_length=128, choices=Priority.choices, verbose_name="priority")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_issues', blank=True)
-    status = models.CharField(max_length=128, choices=Status.choices, verbose_name="status")
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="issue_author")
-    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    tag = models.CharField(max_length=128, choices=Tag.choices,
+                           verbose_name="tag")
+    priority = models.CharField(max_length=128,
+                                choices=Priority.choices,
+                                verbose_name="priority")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,
+                                related_name='project_issues')
+    status = models.CharField(max_length=128,
+                              choices=Status.choices,
+                              verbose_name="status")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               on_delete=models.CASCADE,
+                               related_name="issue_author")
+    assignee = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                 on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -82,12 +93,11 @@ class Issue(models.Model):
 class Comment(models.Model):
 
     description = models.CharField(max_length=2048)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='issue_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               on_delete=models.CASCADE)
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE,
+                              related_name='issue_comments')
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.author)
-
-
-

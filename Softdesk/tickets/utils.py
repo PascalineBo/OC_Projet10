@@ -20,18 +20,3 @@ def validate_multiple_choice(choices_list: List, user_choice: str) -> str:
         raise exceptions.ValidationError(detail=message)
     else:
         return user_choice
-
-
-def is_digit_or_raise_exception(digit_to_validate) -> bool:
-    """
-    Checks if a field is an integer.
-    Else raises an error and displays a response to the user
-    """
-
-    try:
-        int(digit_to_validate)
-    except ValueError:
-        message = f"{digit_to_validate}: not a valid choice -> Waiting for an integer"
-        raise exceptions.ValidationError(detail=message)
-
-    return True
