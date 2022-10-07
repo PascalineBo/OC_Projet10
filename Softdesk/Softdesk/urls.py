@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_nested import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from tickets.views import ProjectViewset, IssueViewset, CommentViewset, ContributorsViewset
+from tickets.views import ProjectViewset, IssueViewset, CommentViewset, ContributorViewset
 from authentication.views import RegisterAPIView
 
 
@@ -26,6 +26,10 @@ router = routers.SimpleRouter()
 # /projects/   ||   /projects/{id}/
 router.register('projects', ProjectViewset, basename='project')
 projects_router = routers.NestedSimpleRouter(router, 'projects', lookup='project')
+
+# /projects/{id}/users/   ||   /projects/{id}/users/{id}
+projects_router.register('users', ContributorViewset, basename='contributor')
+users_router = routers.NestedSimpleRouter(projects_router, 'users', lookup='user')
 
 # /projects/{id}/issues/   ||   /projects/{id}/issues/{id}
 projects_router.register('issues', IssueViewset, basename='project-issues')

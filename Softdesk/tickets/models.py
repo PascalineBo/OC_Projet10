@@ -72,7 +72,7 @@ class Issue(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_issues', blank=True)
     status = models.CharField(max_length=128, choices=Status.choices, verbose_name="status")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="issue_author")
-    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

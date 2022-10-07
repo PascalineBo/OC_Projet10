@@ -1,70 +1,88 @@
+from django.contrib.auth import get_user_model
+from rest_framework.generics import get_object_or_404
 from rest_framework import serializers
 from rest_framework import exceptions
 
 from tickets.models import Project, Issue, Comment, Contributor
+from authentication.serializers import UserSerializer
 
+User = get_user_model()
 
 class ContributorsSerializer(serializers.ModelSerializer):
 
-    user_name = serializers.CharField(source='user.username')
+    user_name = serializers.CharField(source='user.username', required=False)
+    project_title = serializers.CharField(source='project.title', required=False)
 
     class Meta:
         model = Contributor
-        fields = ['user_name', 'project']
+        fields = ['user_name', 'user', 'project', 'project_title', 'id']
 
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    author_name = serializers.CharField(source='author.username')
-    issue_title = serializers.CharField(source='issue.title')
-    comment_project = serializers.CharField(source='issue.project.title')
+    author_name = serializers.CharField(source='author.username', required=False)
+    issue_title = serializers.CharField(source='issue.title', required=False)
+    comment_project = serializers.CharField(source='issue.project.title', required=False)
 
     class Meta:
         model = Comment
-        fields = ['comment_project', 'issue_title', 'description', 'author_name', 'created_time']
+        fields = ['comment_project', 'issue', 'issue_title', 'description', 'author',
+                  'author_name', 'created_time']
 
 
 class IssueSerializer(serializers.ModelSerializer):
 
-    issue_comments = CommentSerializer(many=True)
-    author_name = serializers.CharField(source='author.username')
-    assignee_name = serializers.CharField(source='assignee.username')
-    project_title = serializers.CharField(source='project.title')
-
-    class Meta:
-        model = Issue
-        fields = ['id', 'title', 'desc', 'tag', 'priority', 'project_title', 'status',
-                  'author_name', 'assignee_name', 'created_time', 'issue_comments']
+    issue_comments = CommentSerializer(many=True, required=False)
+    author_name = serializers.CharField(source='author.username', required=False)
+    assignee_name = serializers.CharField(source='assignee.username', required=False)
+    project_title = serializers.CharField(source='project.title', required=False)
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+    # def __init__(self, *args, **kwargs):
+        # super(IssueSerializer, self).__init__(*args, **kwargs)
+        # self.fields['issue_comments'].required = False
+        # TODO:enlever si inutile
+        # self.fields['assignee_name'].required = False
+        # self.fields['project_title'].required = False
+        # self.fields['author_name'].required = False
 
-    project_issues = IssueSerializer(many=True)
-    contributors = ContributorsSerializer(many=True)
-    author_name = serializers.CharField(source='author.username')
-
-    def __init__(self, *args, **kwargs):
-        super(ProjectSerializer, self).__init__(*args, **kwargs)
-        self.fields['project_issues'].required = False
-        self.fields['contributors'].required = False
 
     def validate(self, data):
-        author = self.context['author']  # optional , reading context data
         if "#" in data['title']:
             raise exceptions.ValidationError(detail="can not include '#' in title")
         return data
 
-    def create(self, validated_data):
-        title = validated_data.get('title') # optional, read validated data
-        description = validated_data.get('description')
-        type = validated_data.get('type')
-        validated_data['author'] = self.context['author']  # optional , saving extra data
-        project = Project.objects.create(**validated_data)  # saving post object
-        return project
+    class Meta:
+        model = Issue
+        fields = ['id', 'title', 'desc', 'tag', 'priority', 'project',
+                  'project_title', 'status',
+                  'author', 'author_name', 'assignee', 'assignee_name',
+                  'created_time', 'issue_comments']
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+
+    project_issues = IssueSerializer(many=True, required=False)
+    contributors = ContributorsSerializer(many=True, required=False)
+    author_name = serializers.CharField(source='author.username', required=False)
+
+    # TODO: enlever si non nécessaire
+    # def __init__(self, *args, **kwargs):
+        # super(ProjectSerializer, self).__init__(*args, **kwargs)
+        # self.fields['project_issues'].required = False
+        # self.fields['contributors'].required = False
+        # self.fields['author_name'].required = False
+
+    def validate(self, data):
+        if "#" in data['title']:
+            raise exceptions.ValidationError(detail="can not include '#' in title")
+        return data
+
 
     class Meta:
         model = Project
         fields = "__all__"
+        # TODO:enlever si non nécessaire
         # fields = ['id', 'title', 'created_time', 'project_issues', 'contributors']
 
 
