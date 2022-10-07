@@ -37,16 +37,6 @@ class IssueSerializer(serializers.ModelSerializer):
     assignee_name = serializers.CharField(source='assignee.username', required=False)
     project_title = serializers.CharField(source='project.title', required=False)
 
-
-    # def __init__(self, *args, **kwargs):
-        # super(IssueSerializer, self).__init__(*args, **kwargs)
-        # self.fields['issue_comments'].required = False
-        # TODO:enlever si inutile
-        # self.fields['assignee_name'].required = False
-        # self.fields['project_title'].required = False
-        # self.fields['author_name'].required = False
-
-
     def validate(self, data):
         if "#" in data['title']:
             raise exceptions.ValidationError(detail="can not include '#' in title")
@@ -66,13 +56,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     contributors = ContributorsSerializer(many=True, required=False)
     author_name = serializers.CharField(source='author.username', required=False)
 
-    # TODO: enlever si non nécessaire
-    # def __init__(self, *args, **kwargs):
-        # super(ProjectSerializer, self).__init__(*args, **kwargs)
-        # self.fields['project_issues'].required = False
-        # self.fields['contributors'].required = False
-        # self.fields['author_name'].required = False
-
     def validate(self, data):
         if "#" in data['title']:
             raise exceptions.ValidationError(detail="can not include '#' in title")
@@ -82,8 +65,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = "__all__"
-        # TODO:enlever si non nécessaire
-        # fields = ['id', 'title', 'created_time', 'project_issues', 'contributors']
 
 
 

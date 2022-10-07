@@ -65,8 +65,6 @@ class ContributorViewset(ModelViewSet):
     def get_queryset(self, *args, **kwargs):
         project_id = self.kwargs['project_pk']
         contributors = Contributor.objects.all()
-        # TODO: à effacer
-        # project_id = self.request.GET.get('project_id')
         if project_id is not None:
             contributors = contributors.filter(project_id=project_id)
         return contributors
