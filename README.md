@@ -80,7 +80,7 @@ Les utilisateurs ont les permissions suivantes:
 
 ## Comment utiliser l'Appli:
 
-### Experience Admin:
+### Expérience Admin:
 
 Pour avoir une vue admin de la base de données, vous pouvez utiliser directement dans votre navigateur l'url http://127.0.0.1:8000/admin, et vous connecter en tant que superuser avec les identifiants:
 
@@ -88,7 +88,7 @@ username: Admin
 
 password: Admin-OC
 
-### Experience Développeur:
+### Expérience Développeur:
 
 (i) avec votre terminal, positionnez vous dans le dossier dans lequel vous avez installé l'Appli
 
