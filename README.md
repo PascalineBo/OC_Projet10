@@ -121,4 +121,5 @@ password: S3cretpassword2
 
 
 (v) vous pouvez exécuter des requêtes (Postman) vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
+
 Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requêter le projet 1
