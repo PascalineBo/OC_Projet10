@@ -32,3 +32,9 @@ Ce dossier est découpé de la façon suivante:
 - un fichier permissions.py qui définit les permissions des différents utilisateurs pour les opérations CRUD des ModelViewsets
 - un fichier views.py qui définit les fonctions de service des données grâce aux ModelViewsets: Un ModelViewset  est comparable à une super vue Django qui regroupe   à la fois CreateView, UpdateView, DeleteView, ListView  et DetailView
 
+#### Permissions: 
+Les utilisateurs ont les permissions suivantes:
+Un projet ne doit être accessible qu'à son responsable et aux contributeurs. Seuls les contributeurs sont autorisés à créer ou à consulter les problèmes d'un projet.
+Seuls les contributeurs peuvent créer (Create) et lire (Read) les commentaires relatifs à un problème. En outre, ils ne peuvent les actualiser (Update) et les supprimer (Delete) que s'ils en sont les auteurs.
+Un commentaire doit être visible par tous les contributeurs du projet, mais il ne peut être actualisé ou supprimé que par son auteur.
+
