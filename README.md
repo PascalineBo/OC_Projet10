@@ -17,7 +17,7 @@ Ce dossier contient tous les fichiers de code définissant les interfaces (views
 Ce dossier contient le fichier settings.py où est défini notamment le recours à 'rest_framework', 'rest_framework_simplejwt', 'authentication' de Django. 
 Il contient également le fichier urls.py, où sont définies les urls de connexion, d'obtention et de rafraîchissement des tokens, et les routers définissant les différents endpoints. La liste des endpoints de cette API est:
 
-- /projects/         ainsi que           /projects/{id}/:
+- <pre>/projects/  <pre>/projects/{id}/:
 
 liste complète des projets; vue d'un projet selon son id
 
