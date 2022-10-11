@@ -108,7 +108,9 @@ username: Lenny
 password: S3cretpassword2
 
 Pour avoir une vue admin de la base de données, vous pouvez utiliser directement dans votre navigateur l'url http://127.0.0.1:8000/admin, et vous connecter en tant que superuser avec les identifiants:
+
 username: Admin
+
 password: Admin-OC
 
 (v) vous pouvez exécuter des requetes vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
