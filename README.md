@@ -21,7 +21,7 @@ Il contient également le fichier urls.py, où sont définies les urls de connex
 
 liste complète des projets; vue d'un projet selon son id
 
-- /projects/{id}/users/         ainsi que          /projects/{id}/users/{id}
+- /projects/{id}/users/ <pre>ainsi que<pre> /projects/{id}/users/{id}
 
 liste complète des contributeurs d'un projet; détail d'un utilisateur d'un projet selon son id
 
