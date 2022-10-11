@@ -76,6 +76,14 @@ Les utilisateurs ont les permissions suivantes:
 
 ## Comment utiliser l'Appli:
 
+### Experience Admin:
+
+Pour avoir une vue admin de la base de données, vous pouvez utiliser directement dans votre navigateur l'url http://127.0.0.1:8000/admin, et vous connecter en tant que superuser avec les identifiants:
+
+username: Admin
+
+password: Admin-OC
+
 ### Experience Développeur:
 
 (i) avec votre terminal, positionnez vous dans le dossier dans lequel vous avez installé l'Appli
@@ -107,11 +115,6 @@ username: Lenny
 
 password: S3cretpassword2
 
-Pour avoir une vue admin de la base de données, vous pouvez utiliser directement dans votre navigateur l'url http://127.0.0.1:8000/admin, et vous connecter en tant que superuser avec les identifiants:
-
-username: Admin
-
-password: Admin-OC
 
 (v) vous pouvez exécuter des requêtes (Postman) vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
 Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requêter le projet 1
