@@ -105,7 +105,7 @@ password: Admin-OC
 pour exécuter le serveur de développement
 
 (iv) puis, avec Postman par exemple, vous pouvez vous connecter avec l'url http://127.0.0.1:8000/softdesk/login, en remplissant les champs username et password;
-quelques exemples d'utilisateurs de Softdesk API:
+- quelques exemples d'utilisateurs de Softdesk API:
 
 username: Kate
 
