@@ -113,7 +113,7 @@ username: Admin
 
 password: Admin-OC
 
-(v) vous pouvez exécuter des requetes vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
+(v) vous pouvez exécuter des requêtes (Postman) vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
 Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requeter le projet 1
 
 
