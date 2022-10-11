@@ -32,6 +32,12 @@ Ce dossier est découpé de la façon suivante:
 - un fichier permissions.py qui définit les permissions des différents utilisateurs pour les opérations CRUD des ModelViewsets
 - un fichier views.py qui définit les fonctions de service des données grâce aux ModelViewsets: Un ModelViewset  est comparable à une super vue Django qui regroupe   à la fois CreateView, UpdateView, DeleteView, ListView  et DetailView
 
+#### db.sqlite3:
+C'est la base de données de Django
+
+#### Fichier manage.py:
+Ce fichier contient le script utilitaire de ligne de commande de Django
+
 #### Permissions: 
 Les utilisateurs ont les permissions suivantes:
 - Un projet ne doit être accessible qu'à son responsable et aux contributeurs. 
@@ -40,3 +46,30 @@ Les utilisateurs ont les permissions suivantes:
 - En outre, ils ne peuvent les actualiser (Update) et les supprimer (Delete) que s'ils en sont les auteurs.
 - Un commentaire doit être visible par tous les contributeurs du projet, mais il ne peut être actualisé ou supprimé que par son auteur.
 
+## Comment installer cette Appli sur votre ordinateur:
+(i) Requis: téléchargez **[Python 3.10](https://www.python.org/downloads/)**
+
+(ii) puis, avec les commandes du terminal, positionnez-vous sur le dossier dans lequel vous souhaitez installer l'Appli
+
+(iii) pour importer les fichiers de ce repository, tapez la commande git:
+
+`git clone https://github.com/MargueriteEffren/OC_Projet10.git`
+
+(iv) puis positionnez vous dans le dossier OC_Projet10 (`cd OC_Projet10`)
+
+(v) créez votre environnement virtuel, par exemple avec la commande:
+
+`python3 -m venv env`
+
+(vi) à l'aide des commandes du terminal, activez votre environnement virtuel 
+(si votre environnement virtuel s'appelle env):
+> Sur Windows  
+- terminal de type bash : `source env/Scripts/activate`
+- terminal de type shell : `env\Scripts\activate`
+  
+> Sur Mac ou Linux
+- `source env/bin/activate`
+
+(vii) puis installez les packages requirements du projet à l'aide de la commande:
+
+`pip install -r requirements.txt`
