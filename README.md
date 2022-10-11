@@ -90,13 +90,21 @@ pour exécuter le serveur de développement
 
 (iv) puis, avec Postman par exemple, vous pouvez vous connecter avec l'url http://127.0.0.1:8000/softdesk/login, en remplissant les champs username et password;
 quelques exemples d'utilisateurs de Softdesk API:
+
 username: Kate
+
 password: S3cretpassword1
+
 username: Ares
+
 password: S3cretpassword5
+
 username: Elaine
+
 password: S3cretpassword3
+
 username: Lenny
+
 password: S3cretpassword2
 
 Pour avoir une vue admin de la base de données, vous pouvez utiliser directement dans votre navigateur l'url http://127.0.0.1:8000/admin, et vous connecter en tant que superuser avec les identifiants:
