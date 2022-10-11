@@ -73,3 +73,23 @@ Les utilisateurs ont les permissions suivantes:
 (vii) puis installez les packages requirements du projet à l'aide de la commande:
 
 `pip install -r requirements.txt`
+
+## Comment utiliser l'Appli:
+
+### Experience Développeur:
+
+(i) avec votre terminal, positionnez vous dans le dossier dans lequel vous avez installé l'Appli
+
+(ii) activez l'environnement virtuel
+
+(iii) ensuite tapez la commande 
+
+`python3 manage.py runserver`
+
+pour exécuter le serveur de développement
+
+(iv) puis, avec Postman par exemple, vous pouvez exécuter des requetes vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
+Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requeter le projet 1
+
+
+
