@@ -15,10 +15,13 @@ class IsProjectAuthorOrContributorDetailsOrReadOnly(BasePermission):
             contrib.user for contrib in Contributor.objects.filter(
                 project=project_id).select_related('project')
         ]
+
+        contributors.append(obj.author.id)
+
         if request.method in SAFE_METHODS:
             return bool(request.user in contributors)
 
-        return bool(obj.author == request.user.id)
+        return bool(obj.author.id == request.user.id)
 
 
 class IsContributor(BasePermission):

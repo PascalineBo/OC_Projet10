@@ -34,6 +34,41 @@ class DestroyMixin:
             status=status.HTTP_200_OK)
 
 
+class SerializeIssueMixin:
+    """
+    Behaviour of Issue Serialization
+    """
+    serializer_class = IssueSerializer
+
+    def serializeIssue(self, request, *args, **kwargs):
+        author = request.user.id
+        assignee = request.POST.get('assignee')
+        project_pk = self.kwargs.get('project_pk')
+        project = Project.objects.get(pk=project_pk)
+        tag_choice = validate_multiple_choice(
+            choices_list=Issue.Tag,
+            user_choice=request.POST.get('tag'))
+        priority_choice = validate_multiple_choice(
+            choices_list=Issue.Priority,
+            user_choice=request.POST.get('priority'))
+        status_choice = validate_multiple_choice(
+            choices_list=Issue.Status,
+            user_choice=request.POST.get('status'))
+        data = {
+            "title": request.POST.get('title'),
+            "desc": request.POST.get('desc'),
+            "tag": tag_choice,
+            "priority": priority_choice,
+            "project": project.id,
+            "status": status_choice,
+            "assignee": assignee,
+            "author": author,
+        }
+        serializer = self.serializer_class(data=data)
+
+        return serializer
+
+
 class SerializeCommentMixin:
     """
     Behaviour of Comment Serialization
@@ -138,9 +173,7 @@ class ProjectViewset(DestroyMixin, ModelViewSet):
         return super().destroy(request, model_name, *args, **kwargs)
 
 
-class IssueViewset(ModelViewSet, DestroyMixin):
-
-    serializer_class = IssueSerializer
+class IssueViewset(SerializeIssueMixin, DestroyMixin, ModelViewSet):
 
     permission_classes = [IsAuthenticated,
                           IsContributor,
@@ -161,33 +194,24 @@ class IssueViewset(ModelViewSet, DestroyMixin):
             return issues
 
     def create(self, request, *args, **kwargs):
-        author = request.user.id
-        assignee = request.POST.get('assignee')
-        project_pk = self.kwargs.get('project_pk')
-        project = Project.objects.get(pk=project_pk)
-        tag_choice = validate_multiple_choice(
-            choices_list=Issue.Tag,
-            user_choice=request.POST.get('tag'))
-        priority_choice = validate_multiple_choice(
-            choices_list=Issue.Priority,
-            user_choice=request.POST.get('priority'))
-        status_choice = validate_multiple_choice(
-            choices_list=Issue.Status,
-            user_choice=request.POST.get('status'))
-        data = {
-            "title": request.POST.get('title'),
-            "desc": request.POST.get('desc'),
-            "tag": tag_choice,
-            "priority": priority_choice,
-            "project": project.id,
-            "status": status_choice,
-            "assignee": assignee,
-            "author": author,
-        }
-        serializer = self.serializer_class(data=data)
+        serializer = \
+            super().serializeIssue(request, *args, **kwargs)
 
         if serializer.is_valid():
             self.perform_create(serializer)
+            return Response(data=serializer.data,
+                            status=status.HTTP_201_CREATED)
+        else:
+            return Response(data=serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        serializer = \
+            super().serializeIssue(request, *args, **kwargs)
+
+        if serializer.is_valid():
+            serializer.save()
+
             return Response(data=serializer.data,
                             status=status.HTTP_201_CREATED)
         else:
