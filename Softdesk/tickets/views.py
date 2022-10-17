@@ -1,4 +1,3 @@
-from django.db import transaction
 from rest_framework import status, exceptions
 from rest_framework.permissions import IsAuthenticated
 from tickets.models import Project, Issue, Comment, Contributor
@@ -27,7 +26,7 @@ class DestroyMixin:
 
     def destroy(self, request, model_name, *args, **kwargs):
         instance = self.get_object()
-        self.perform_destroy(instance)
+        instance.delete()
         return Response({
             "message": f"{model_name} deleted successfully"
         },
@@ -91,7 +90,7 @@ class SerializeCommentMixin:
         return serializer
 
 
-class ContributorViewset(ModelViewSet):
+class ContributorViewset(DestroyMixin, ModelViewSet):
 
     serializer_class = ContributorsSerializer
 
@@ -121,6 +120,9 @@ class ContributorViewset(ModelViewSet):
             return Response(data=serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
+    def destroy(self, request, model_name="user", *args, **kwargs):
+        return super().destroy(request, model_name, *args, **kwargs)
+
 
 class ProjectViewset(DestroyMixin, ModelViewSet):
     serializer_class = ProjectSerializer
@@ -149,25 +151,23 @@ class ProjectViewset(DestroyMixin, ModelViewSet):
 
         if serializer.is_valid():
             serializer.save()
+            project = serializer.save()
+            try:
+                contributor = Contributor.objects.create(project=project,
+                                                         user_id=project.
+                                                         author_id,
+                                                         role='AUTHOR')
+            except TypeError:
+                error_message = {
+                    'error': 'failed to create contributor',
+                }
+                raise exceptions.APIException(detail=error_message)
+            contributor.save()
             return Response(data=serializer.data,
                             status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
-
-    @transaction.atomic
-    def perform_create(self, serializer):
-        project = serializer.save()
-        try:
-            contributor = Contributor.objects.create(project=project,
-                                                     user_id=project.author_id,
-                                                     role='AUTHOR')
-        except TypeError:
-            error_message = {
-                'error': 'fail to create contributor',
-            }
-            raise exceptions.APIException(detail=error_message)
-        contributor.save()
 
     def destroy(self, request, model_name="project", *args, **kwargs):
         return super().destroy(request, model_name, *args, **kwargs)
@@ -222,7 +222,8 @@ class IssueViewset(SerializeIssueMixin, DestroyMixin, ModelViewSet):
         return super().destroy(request, model_name, *args, **kwargs)
 
 
-class CommentViewset(SerializeCommentMixin, ModelViewSet):
+class CommentViewset(DestroyMixin, SerializeCommentMixin,
+                     ModelViewSet):
 
     serializer_class = CommentSerializer
 
@@ -262,3 +263,6 @@ class CommentViewset(SerializeCommentMixin, ModelViewSet):
         else:
             return Response(data=serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, model_name="comment", *args, **kwargs):
+        return super().destroy(request, model_name, *args, **kwargs)
