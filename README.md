@@ -59,6 +59,7 @@ Requis: téléchargez **[Python 3.10](https://www.python.org/downloads/)**
 `git clone https://github.com/PascalineBo/Tickets_followup_API.git`
   </li>
 <li>puis positionnez vous dans le dossier Tickets_followup_API 
+  
   `cd Tickets_followup_API `  
   </li>
 
@@ -68,6 +69,7 @@ Requis: téléchargez **[Python 3.10](https://www.python.org/downloads/)**
   </li>
 <li>à l'aide des commandes du terminal, activez votre environnement virtuel 
 (si votre environnement virtuel s'appelle env):
+  
 > Sur Windows  
 - terminal de type bash : `source env/Scripts/activate`
 - terminal de type shell : `env\Scripts\activate`
