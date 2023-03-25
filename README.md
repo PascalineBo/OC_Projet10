@@ -50,21 +50,21 @@ Les utilisateurs ont les permissions suivantes:
 - Un commentaire doit être visible par tous les contributeurs du projet, mais il ne peut être actualisé ou supprimé que par son auteur.
 
 ## Comment installer cette Appli sur votre ordinateur:
-(i) Requis: téléchargez **[Python 3.10](https://www.python.org/downloads/)**
+Requis: téléchargez **[Python 3.10](https://www.python.org/downloads/)**
+<ol>
+<li>puis, avec les commandes du terminal, positionnez-vous sur le dossier dans lequel vous souhaitez installer l'Appli  </li>
 
-(ii) puis, avec les commandes du terminal, positionnez-vous sur le dossier dans lequel vous souhaitez installer l'Appli
-
-(iii) pour importer les fichiers de ce repository, tapez la commande git:
+<li>pour importer les fichiers de ce repository, tapez la commande git:
 
 `git clone https://github.com/MargueriteEffren/OC_Projet10.git`
+  </li>
+<li>puis positionnez vous dans le dossier OC_Projet10 (`cd OC_Projet10`)  </li>
 
-(iv) puis positionnez vous dans le dossier OC_Projet10 (`cd OC_Projet10`)
-
-(v) créez votre environnement virtuel, par exemple avec la commande:
+<li>créez votre environnement virtuel, par exemple avec la commande:
 
 `python3 -m venv env`
-
-(vi) à l'aide des commandes du terminal, activez votre environnement virtuel 
+  </li>
+<li>à l'aide des commandes du terminal, activez votre environnement virtuel 
 (si votre environnement virtuel s'appelle env):
 > Sur Windows  
 - terminal de type bash : `source env/Scripts/activate`
@@ -72,11 +72,13 @@ Les utilisateurs ont les permissions suivantes:
   
 > Sur Mac ou Linux
 - `source env/bin/activate`
-
-(vii) puis installez les packages requirements du projet à l'aide de la commande:
+  </li>
+<li>puis installez les packages requirements du projet à l'aide de la commande:
 
 `pip install -r requirements.txt`
-
+  </li>
+  </ol>
+  
 ## Comment utiliser l'Appli:
 
 ### Expérience Admin:
