@@ -94,18 +94,19 @@ username: Admin
 password: Admin-OC
 
 ### Expérience Développeur:
+<ol>
+<li> avec votre terminal, positionnez vous dans le dossier dans lequel vous avez installé l'Appli</li>
 
-(i) avec votre terminal, positionnez vous dans le dossier dans lequel vous avez installé l'Appli
+<li> activez l'environnement virtuel</li>
 
-(ii) activez l'environnement virtuel
-
-(iii) ensuite tapez la commande 
+<li> ensuite tapez la commande 
 
 `python3 manage.py runserver`
 
 pour exécuter le serveur de développement
-
-(iv) puis, avec Postman par exemple, vous pouvez vous connecter avec l'url http://127.0.0.1:8000/softdesk/login, en remplissant les champs username et password;
+</li>
+  
+<li> puis, avec Postman par exemple, vous pouvez vous connecter avec l'url http://127.0.0.1:8000/softdesk/login, en remplissant les champs username et password;
 - quelques exemples d'utilisateurs de Softdesk API:
 
 username: Kate
@@ -123,8 +124,8 @@ password: S3cretpassword3
 username: Lenny
 
 password: S3cretpassword2
+</li>
 
+<li> vous pouvez exécuter des requêtes (Postman) vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
 
-(v) vous pouvez exécuter des requêtes (Postman) vers  http://127.0.0.1:8000/softdesk/, suivi de l'url des différents endpoints:
-
-Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requêter le projet 1
+Exemple: http://127.0.0.1:8000/softdesk/projects/1/ pour requêter le projet 1</li>
