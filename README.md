@@ -2,9 +2,7 @@
 
 ## Objectif du projet: développer une API de suivi des problèmes pour les trois plateformes (site web, applications Android et iOS), avec des endpoints qui serviront les données
 
-### [Cahier des Charges](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Python%20FR/P8%20-%20Cr%C3%A9ez%20une%20API%20s%C3%A9curis%C3%A9e%20RESTful%20en%20utilisant%20Django%20REST%20/Softdesk%20-%20Conception%20de%20la%20mise%20en%20%C5%93uvre.docx)(https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Python+FR/P8+-+Cr%C3%A9ez+une+API+s%C3%A9curis%C3%A9e+RESTful+en+utilisant+Django+REST+/Softdesk+-+Conception+de+la+mise+en+%C5%93uvre.odt)
-
-#### Architecture du projet:
+### [Cahier des Charges](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Python%20FR/P8%20-%20Cr%C3%A9ez%20une%20API%20s%C3%A9curis%C3%A9e%20RESTful%20en%20utilisant%20Django%20REST%20/Softdesk%20-%20Conception%20de%20la%20mise%20en%20%C5%93uvre.docx)
 
 Le projet est découpé selon les dossiers suivants:
 
