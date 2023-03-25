@@ -1,4 +1,4 @@
-# OC_Projet10: Créez une API sécurisée RESTful en utilisant le Framework Django REST
+# Tickets follow-up API: Créez une API sécurisée RESTful en utilisant le Framework Django REST
 
 ## Objectif du projet: développer une API de suivi des problèmes pour les trois plateformes (site web, applications Android et iOS), avec des endpoints qui serviront les données
 
