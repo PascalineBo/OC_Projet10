@@ -12,22 +12,20 @@ Ce dossier contient tous les fichiers de code définissant les interfaces (views
 #### Dossier SoftDesk:
 Ce dossier contient le fichier settings.py où est défini notamment le recours à 'rest_framework', 'rest_framework_simplejwt', 'authentication' de Django. 
 Il contient également le fichier urls.py, où sont définies les urls de connexion, d'obtention et de rafraîchissement des tokens, et les routers définissant les différents endpoints. La liste des endpoints de cette API est:
+> liste complète des projets; vue d'un projet selon son id:
+<pre>/projects/</pre>  
+<pre>/projects/{id}/</pre>
 
-- <pre>/projects/  <pre>/projects/{id}/:
+> liste complète des contributeurs d'un projet; détail d'un utilisateur d'un projet selon son id:
+<pre>/projects/{id}/users/ </pre> 
+<pre> /projects/{id}/users/{id}</pre> 
 
-liste complète des projets; vue d'un projet selon son id
+> liste complète des problèmes d'un projet; vue d'un problème d'un projet selon son id:
+<pre>/projects/{id}/issues/ <pre>/projects/{id}/issues/{id}</pre>
 
-- <pre>/projects/{id}/users/ <pre> /projects/{id}/users/{id}
-
-liste complète des contributeurs d'un projet; détail d'un utilisateur d'un projet selon son id
-
-- <pre>/projects/{id}/issues/ <pre>/projects/{id}/issues/{id}
-
-liste complète des problèmes d'un projet; vue d'un problème d'un projet selon son id
-
-- <pre>/projects/{id}/issues/{id}/comments<pre>/projects/{id}/issues/{id}/comments/{id}
-
-liste complète des commentaires d'un problème; vue d'un commentaire d'un problème selon son id
+> liste complète des commentaires d'un problème; vue d'un commentaire d'un problème selon son id:
+<pre>/projects/{id}/issues/{id}/comments</pre>
+<pre>/projects/{id}/issues/{id}/comments/{id}</pre>
 
 #### Dossier tickets:
 Ce dossier est découpé de la façon suivante:
