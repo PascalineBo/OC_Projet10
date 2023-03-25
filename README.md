@@ -21,7 +21,8 @@ Il contient également le fichier urls.py, où sont définies les urls de connex
 <pre> /projects/{id}/users/{id}</pre> 
 
 > liste complète des problèmes d'un projet; vue d'un problème d'un projet selon son id:
-<pre>/projects/{id}/issues/ <pre>/projects/{id}/issues/{id}</pre>
+<pre>/projects/{id}/issues/</pre>
+<pre>/projects/{id}/issues/{id}</pre>
 
 > liste complète des commentaires d'un problème; vue d'un commentaire d'un problème selon son id:
 <pre>/projects/{id}/issues/{id}/comments</pre>
